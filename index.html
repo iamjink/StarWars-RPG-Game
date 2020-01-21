@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- font links -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Changa:700|Exo:900|Kanit:700|Orbitron:900|Prompt:700|Rajdhani:700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <!-- Jquery link -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <title>STAR WARS RPG GAME</title>
+
+</head>
+
+<body>
+
+    <div id="Header"><img id="title" src="assets/images/TITLE.png"></div>
+
+    <div class=".container-fluid">
+
+        <div id="jediChoices">
+            <h2>SELECT YOUR JEDI</h2>
+
+            <button id="button-one" class="characterOne"><img src="assets/images/CHARACTER-1.png"></button>
+            <button id="button-two" class="characterTwo"><img src="assets/images/CHARACTER-2.png"></button>
+            <button id="button-three" class="characterThree"><img src="assets/images/CHARACTER-3.png"></button>
+            <button id="button-four" class="characterFour"><img src="assets/images/CHARACTER-4.png"></button>
+            <button id="button-five" class="characterFive"><img src="assets/images/CHARACTER-5.png"></button>
+            <button id="button-six" class="characterSix"><img src="assets/images/CHARACTER-6.png"></button>
+        </div>
+
+        <div id="enemyChoices">
+            <h2>ENEMIES TO ATTACK</h2>
+
+            <button id="button-a" class="enemyOne"><img src=""></button>
+            <button id="button-b" class="enemyTwo"><img src=""></button>
+            <button id="button-c" class="enemyThree"><img src=""></button>
+            <button id="button-d" class="enemyFour"><img src=""></button>
+            <button id="button-e" class="enemyFive"><img src=""></button>
+
+            <!-- 
+            <h2 id="sumNumber">Your total score: <span id="userNumber">0</span></h2> -->
+        </div>
+
+        <div id="wrapper">
+            <div id="YourJedi">
+                <h2>YOUR JEDI <img id="chosenJedi"></h2>
+                <h3 id="hp">HEALTH POINTS: <space id="JediHPPoints">0</space>
+                </h3>
+            </div>
+
+            <button id="attackButton" class="attack">Attack!</button>
+
+            <div id="YourOpponent">
+                <h2>YOUR OPPONENT<img id="chosenEnemy"></h2>
+                <h3 id="hp">HEALTH POINTS: <space id="enemyHPPoints">0</space>
+                </h3>
+            </div>
+        </div>
+
+
+        <div id="scoreBoard">
+            <img class="boardGraphic" src="assets/images/scoreboard.png">
+            <h3 id="text">You attacked your opponent by <span id="attackPower">0</span> power!
+                <br>
+                Your opponent attacked you by <span id="counterAttackPower">0</span> power!</h3>
+            <!-- <h3 id="text-2">Your opponent attacked you by <span id="counterAttackPower">0</span> power!</h3> -->
+            
+        </div>
+    </div>
+
+
+    <!-- scripts  -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
+</body>
+
+</html>
