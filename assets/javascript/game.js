@@ -86,10 +86,25 @@ $(document).ready(function () {
     reset();
 
     function play() {
-        //defining jQuery object of variables
+        //defining jQuery variables that are selecting ids from characters area html 
         var $jediList = $('#jediChoices');
         var $enemyList = $('#enemyChoices');
-        var $
+        //defining jQuery variabl(es that are selecting ids from wrapper area html 
+        var $chosenJedi = $('#chosenJedi');
+        var $chosenEnemy = $('#chosenEnemy');
+        //defining jQuery variables that are selecting text ids from score area html
+        var $scoreText = $('#scoreText');
+        var $winText = $('#scoreText');
+        var $lossText = $('#scoreText');
+        var $gameOverBUtton = $('#gameOverButton');
+        var $jediText = $('#scoreText');
+
+        //underscore.js for dynamically updated templates for scoreText. The text ids are in the html
+        
+
+
+
+
 
     }
 

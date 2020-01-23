@@ -39,73 +39,156 @@
 
     <div class=".container-fluid">
 
-        <div id="jediChoices">
-            <h2>SELECT YOUR JEDI</h2>
+        <!-- Jedis and Enemies to choose area -->
+        <div id="charactersArea">
             <div id="jediChoices">
+                <h2>SELECT YOUR JEDI</h2>
+                <div id="jediChoices">
 
-                <!-- character images will show here on reset function -->
+                    <!-- character images will show here on reset function -->
 
-                <button id="button-one" class="characterOne"><img src="assets/images/CHARACTER-1.png"></button>
-                <button id="button-two" class="characterTwo"><img src="assets/images/CHARACTER-2.png"></button>
-                <button id="button-three" class="characterThree"><img src="assets/images/CHARACTER-3.png"></button>
-                <button id="button-four" class="characterFour"><img src="assets/images/CHARACTER-4.png"></button>
-                <button id="button-five" class="characterFive"><img src="assets/images/CHARACTER-5.png"></button>
-                <button id="button-six" class="characterSix"><img src="assets/images/CHARACTER-6.png"></button>
+                    <button id="button-one" class="characterOne"><img src="assets/images/CHARACTER-1.png"></button>
+                    <button id="button-two" class="characterTwo"><img src="assets/images/CHARACTER-2.png"></button>
+                    <button id="button-three" class="characterThree"><img src="assets/images/CHARACTER-3.png"></button>
+                    <button id="button-four" class="characterFour"><img src="assets/images/CHARACTER-4.png"></button>
+                    <button id="button-five" class="characterFive"><img src="assets/images/CHARACTER-5.png"></button>
+                    <button id="button-six" class="characterSix"><img src="assets/images/CHARACTER-6.png"></button>
 
+                </div>
             </div>
-        </div>
 
-        <div id="enemyChoices">
-            <h2>ENEMIES TO ATTACK</h2>
             <div id="enemyChoices">
-                
-                <!-- remainder of character images will show here on reset function after character is chosen-->
+                <h2>ENEMIES TO ATTACK</h2>
+                <div id="enemyChoices">
 
-                <button id="button-a" class="enemyOne"><img src=""></button>
-                <button id="button-b" class="enemyTwo"><img src=""></button>
-                <button id="button-c" class="enemyThree"><img src=""></button>
-                <button id="button-d" class="enemyFour"><img src=""></button>
-                <button id="button-e" class="enemyFive"><img src=""></button>
+                    <!-- remainder of character images will show here on reset function after character is chosen-->
 
-            </div>
-            <!-- 
+                    <button id="button-a" class="enemyOne"><img src=""></button>
+                    <button id="button-b" class="enemyTwo"><img src=""></button>
+                    <button id="button-c" class="enemyThree"><img src=""></button>
+                    <button id="button-d" class="enemyFour"><img src=""></button>
+                    <button id="button-e" class="enemyFive"><img src=""></button>
+
+                </div>
+                <!-- 
             <h2 id="sumNumber">Your total score: <span id="userNumber">0</span></h2> -->
+            </div>
+
         </div>
 
-        <div id="wrapper">
-            <hr style ="border:0.5px solid white;"/>
-            
-            <!-- battle area -->
 
+        <!-- battle area -->
+        <div id="wrapper">
+            <hr style="border:0.5px solid white;" />
             <br>
             <div id="YourJedi">
-                <h2>YOUR JEDI <img id="chosenJedi"></h2>
+                <h2>YOUR JEDI </h2>
+
+                <div id="chosenJedi">
+                    <!-- chosen jedi user clicked on will appear here dynamically -->
+                </div>
+
                 <h3 id="hp">HEALTH POINTS: <space id="JediHPPoints">0</space>
                 </h3>
+
             </div>
 
-            <button id="attackButton" class="attack">Attack!</button>
+            <div id="attackButtonArea">
+                <!-- attack button area -->
+                <button id="attackButton" class="attack">Attack!</button>
+            </div>
 
             <div id="YourOpponent">
-                <h2>YOUR OPPONENT<img id="chosenEnemy"></h2>
+                <h2>YOUR OPPONENT</h2>
+
+                <div id="chosenEnemy">
+                    <!-- chosen enemy user clicked on will appear here dynamically -->
+                </div>
+
                 <h3 id="hp">HEALTH POINTS: <space id="enemyHPPoints">0</space>
                 </h3>
+
             </div>
+
         </div>
 
 
+        <!-- scoreboard area -->
         <div id="scoreBoard">
             <img class="boardGraphic" src="assets/images/scoreboard.png">
-            <h3 id="text">You attacked your opponent by <span id="attackPower">0</span> power!
-                <br>
-                Your opponent attacked you by <span id="counterAttackPower">0</span> power!</h3>
-            <!-- <h3 id="text-2">Your opponent attacked you by <span id="counterAttackPower">0</span> power!</h3> -->
 
+            <!-- text gets updated as game plays here -->
+            <div id="scoreText">
+                <h3 id="text">You attacked your opponent by <span id="attackPower">0</span> power!
+                    <br>
+                    Your opponent attacked you by <span id="counterAttackPower">0</span> power!</h3>
+            </div>
+
+            <div id="gameOverButton">
+                <!-- game over button appears here when game is over  -->
+            </div>
         </div>
     </div>
 
+    <div id="push"></div>
+    <div id="footer"></div>
 
-    <!-- scripts  -->
+
+    <!-- text scripts for dynamic character list div -->
+    <script type="text/template" id="characterTemplate">
+        <div id="characterListArea <%= background %>" data-character-index="<%= index %>">
+            <img src="<%= character.visual %>">
+            <p id="text">HEALTH POINTS:<%= character.healthPoints %></p>
+    </script>
+
+
+    <!-- text scripts for dynamic scoreBoard div -->
+    <script type="text/template" id="attackTemplate">
+        <div id="scoreText">
+            <p id="text">
+                You attacked <%=gameObj.currentEnemy.name : gameObj.lastOpponent.name %> for 
+                <%=game.Obj.currentAttackPower %> power!
+                <br>
+                <% if (gameObj.currentEnemy) { %>
+            <%= gameObj.currentEnemy.name %> counter attacked by <%= gameObj.currentEnemy.counterAttackPower %>.
+        <% } %></p>
+        </div>
+    </script>
+
+    <!-- text scripts for dynamic scoreBoard div when user defeated-->
+    <script type="text/template" id="winTemplate">
+        <div id="scoreText">
+            <p id="text">
+                You have defeated <%= previousEnemy.name %>, choose another enemy to fight!
+            </p>
+        </div>
+    </script>
+
+    <!-- text scripts for dynamic scoreBoard div when user lost-->
+    <script type="text/template" id="lossTemplate">
+        <div id="scoreText">
+            <p id="text">
+                <%= currentEnemy.name %> have defeated you!
+            </p>
+        </div>
+    </script>
+
+    <!-- text scripts for dynamic scoreBoard div when user won the game-->
+    <script type="text/template" id="jediTemplate">
+        <div id="scoreText">
+            <p id="text">
+                You have defeated <%= previousEnemy.name %>! You are a real Jedi Master!
+            </p>
+        </div>
+    </script>
+
+
+
+    <!-- linked scripts  -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
@@ -116,6 +199,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="assets/javascript/game.js"></script>
+
 </body>
 
 </html>
