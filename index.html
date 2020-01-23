@@ -47,12 +47,12 @@
 
                     <!-- character images will show here on reset function -->
 
-                    <button id="button-one" class="characterOne"><img src="assets/images/CHARACTER-1.png"></button>
+                    <!-- <button id="button-one" class="characterOne"><img src="assets/images/CHARACTER-1.png"></button>
                     <button id="button-two" class="characterTwo"><img src="assets/images/CHARACTER-2.png"></button>
                     <button id="button-three" class="characterThree"><img src="assets/images/CHARACTER-3.png"></button>
                     <button id="button-four" class="characterFour"><img src="assets/images/CHARACTER-4.png"></button>
                     <button id="button-five" class="characterFive"><img src="assets/images/CHARACTER-5.png"></button>
-                    <button id="button-six" class="characterSix"><img src="assets/images/CHARACTER-6.png"></button>
+                    <button id="button-six" class="characterSix"><img src="assets/images/CHARACTER-6.png"></button> -->
 
                 </div>
             </div>
@@ -136,7 +136,7 @@
 
     <!-- text scripts for dynamic character list div -->
     <script type="text/template" id="characterTemplate">
-        <div id="characterListArea <%= background %>" data-character-index="<%= index %>">
+        <div class="characterListArea characterClick <%= background %>" data-character-index="<%= index %>">
             <img src="<%= character.visual %>">
             <p id="text">HEALTH POINTS:<%= character.healthPoints %></p>
     </script>
@@ -159,7 +159,7 @@
     <script type="text/template" id="winTemplate">
         <div id="scoreText">
             <p id="text">
-                You have defeated <%= previousEnemy.name %>, choose another enemy to fight!
+                You have defeated <%= lastOpponent.name %>, choose another enemy to fight!
             </p>
         </div>
     </script>
@@ -177,7 +177,7 @@
     <script type="text/template" id="jediTemplate">
         <div id="scoreText">
             <p id="text">
-                You have defeated <%= previousEnemy.name %>! You are a real Jedi Master!
+                You have defeated <%= lastOpponent.name %>! You are a real Jedi Master!
             </p>
         </div>
     </script>

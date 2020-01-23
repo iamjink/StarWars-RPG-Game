@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    //reset function sets everything to 0/ false at game start
     function reset() {
         window.gameObj = {
             //attack button to false, then set it to true
@@ -78,13 +78,14 @@ $(document).ready(function () {
             //generation random battle sound from array when attack button is pressed
             RandomBattleSound: function () {
                 return this.battleSoundArray[Math.floor(Math.random() * this.battleSoundArray.length)];
-            },
+            }
         }
     };
 
     //game start
     reset();
 
+    //game play. shows character selections and text will dynamically appear in scoreboard as game continues
     function play() {
         //defining jQuery variables that are selecting ids from characters area html 
         var $jediList = $('#jediChoices');
@@ -100,133 +101,117 @@ $(document).ready(function () {
         var $jediText = $('#scoreText');
 
         //underscore.js for dynamically updated templates for scoreText. The text ids are in the html
-        
+        var $charTemplate = _.template($('#characterTemplate').html());
+        var $attTemplate = _.template($('#attackTemplate').html());
+        var $wTemplate = _.template($('#winTemplate').html());
+        var $lTemplate = _.template($('#lossTemplate').html());
+        var $JDTemplate = _.template($('#jediTemplate').html());
 
+        //characters not selected yet, then returns empty strings
+        var charNotSelected = ""
+        $chosenJedi.html("");
+        $chosenEnemy.html("");
+        $scoreText.html("");
+        $gamegameOverButton.html("");
 
-
-
-
-    }
-
-
-
-    //click function that sends character image to your jedi field and the rest images to enemies to attack field
-
-    //click function that sends button clicked to your opponent field
-
-    //function for random number is assigned in your jedi
-
-    //function for random number is assigned in your opponent
-
-    //click function for the attack button. when this button is clicked , and opponet random number decreases by jedi random number. score number shows the random number that is assigned to each of jedi and opponent
-
-    //health point decreases by click and random number
-
-    //if jedi health point goes to 0, get an alert that says you lost. 
-
-    //if oppoment health point goes to 0, get an alert that says you win. 
-
-
-
-
-
-
-
-    //random number generator
-
-    var RandomNumber = Math.floor(Math.random() * ((120 - 19) + 1) + 19);
-
-    //assigning a hidden random value to each crystal between 1 and 12
-
-    var buttonOne = Math.floor(Math.random() * 12) + 1;
-    var buttonTwo = Math.floor(Math.random() * 12) + 1;
-    var buttonThree = Math.floor(Math.random() * 12) + 1;
-    var buttonFour = Math.floor(Math.random() * 12) + 1;
-
-    //setting variables for scores
-    var wins = 0;
-    var losses = 0;
-    var userTotal = 0;
-
-    $("#randomNumber").text(RandomNumber);
-
-    //defining functions for scoreboard
-    function winScore() {
-        wins++;
-        $("#wins").text(wins);
-    }
-
-    function lossScore() {
-        losses++;
-        $("#losses").text(losses)
-
-    }
-
-    //click functions that random assign number to each button and add these numbers when clicked
-    $("#button-one").click(() => {
-        userTotal = userTotal + buttonOne;
-        $("#userNumber").text(userTotal);
-        if (userTotal === RandomNumber) {
-            winScore();
-            reset();
-        } else if (userTotal > RandomNumber) {
-            lossScore();
-            reset();
+        //characters to select will appear in select your jedi. If none of the characters are selected, then index 0 of array will show in the div
+        gameObj.characterList.forEach(function (character, index) {
+            charNotSelected = charNotSelected + $charTemplate({
+                index: index,
+                character: character
+            });
+        });
+        if (gameObj.userCharacter) {
+            $chosenJedi.html($charTemplate({
+                index: 0,
+                character: gameObj.userCharacter
+            }));
+            $enemyList.html(charNotSelected);
+            $jediList.html("");
+        } else {
+            $jediList.html(charNotSelected);
+            $enemyList.html("")
         }
+        if (gameObj.currentEnemy) {
+            $chosenEnemy.html($charTemplate({
+                index: 0,
+                character: gameObj.currentEnemy
+            }));
+        }
+        //if attack happened, then display attack text in the scoreboard
+        if (gameObj.attackOccured) {
+            $scoreText.html($attTemplate({
+                gameObj: gameObj
+            }))
+        }
+        //if win occured, display win text in the scoreboard
+        if (gameObj.winOccured) {
+            $winText.html($wTemplate({
+                lastOpponent: gameObj.lastOpponent
+            }));
+            $('#chosenEnemy').empty(gameObj.currentEnemy);
+        }
+        //if loss occured,
+        if (gameObj.lossOccured) {
+            $lossText.html($lTemplate({gameObj: gameObj}));
+        }
+        //if enemy is wounded, health point is less than 0
+        if (gameObj.wounded){
+            $("#scoreText").html("You are fatally wounded! Game Over!");
+        }
+        //if game is over/ user loses, battle again button shows up
+        if (gameObj.gameOver) {
+            var b =$('<button>');
+            b.addClass('btn-primary waves-effect waves-light btn-lg');
+            b.html('Battle Again!');
+            reset();
+
+            b.click(play);
+            $('#gameOverButton').append(b);
+        }
+        //if user is a true jedi master
+        if (gameobj.jediMaster) {
+            $jediText.html($JDTemplate({lastOpponent: gameObj.lastOpponent}));
+            $('#chosenEnemy').empty(gameObj.currentEnemy);
+
+            var b =$('<button>');
+            b.addClass('btn-primary waves-effect waves-light btn-lg');
+            b.html('Battle Again!');
+            reset();
+
+            b.click(play);
+            $('#gameOverButton').append(b);
+        }
+    };
+
+    //selecting characters
+    $('#jediChoices').on('click', '.characterListArea', function(e) {
+        var element = $(this);
+        var charIndex = element.data('character-index');
+        if (!gameObj.userCharacter) {
+            //pushes selection into usercharacter array
+            gameObj.userCharacter = gameObj.characterList.splice(charIndex, 1)[0];
+            //setting attack power to the value in the gameObj
+            gameObj.currentAttackPower = gameObj.userCharacter.attackPower;
+        }
+
+        play();
     });
 
-    $("#button-two").click(() => {
-        userTotal = userTotal + buttonTwo;
-        $("#userNumber").text(userTotal);
-        if (userTotal === RandomNumber) {
-            winScore();
-            reset();
-        } else if (userTotal > RandomNumber) {
-            lossScore();
-            reset();
-        }
-    });
-
-    $("#button-three").click(() => {
-        userTotal = userTotal + buttonThree;
-        $("#userNumber").text(userTotal);
-        if (userTotal === RandomNumber) {
-            winScore();
-            reset();
-        } else if (userTotal > RandomNumber) {
-            lossScore();
-            reset();
-        }
-    });
-
-    $("#button-four").click(() => {
-        userTotal = userTotal + buttonFour;
-        $("#userNumber").text(userTotal);
-        if (userTotal === RandomNumber) {
-            winScore();
-            reset();
-        } else if (userTotal > RandomNumber) {
-            lossScore();
-            reset();
-        }
-    });
+    //selecting enemy
+    
 
 
 
 
-    //game reset function when win or loss score goes up by 1
-    function reset() {
-        userTotal = 0;
-        $("#userNumber").text(userTotal);
-
-        RandomNumber = Math.floor(Math.random() * ((120 - 19) + 1) + 19);
-        $("#randomNumber").text(RandomNumber);
 
 
-        buttonOne = Math.floor(Math.random() * 12) + 1;
-        buttonTwo = Math.floor(Math.random() * 12) + 1;
-        buttonThree = Math.floor(Math.random() * 12) + 1;
-        buttonFour = Math.floor(Math.random() * 12) + 1;
-    }
+
+
+
+
+
+
+
 
 });
