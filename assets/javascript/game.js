@@ -89,6 +89,7 @@ $(document).ready(function () {
         //defining jQuery object of variables
         var $jediList = $('#jediChoices');
         var $enemyList = $('#enemyChoices');
+        var $
 
     }
 
