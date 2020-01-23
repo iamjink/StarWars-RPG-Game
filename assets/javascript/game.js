@@ -1,6 +1,10 @@
+
+
+
 $(document).ready(function () {
     //reset function sets everything to 0/ false at game start
-    function reset() {
+ 
+   function reset() {
         window.gameObj = {
             //attack button to false, then set it to true
             attackOccured: false,
@@ -186,6 +190,7 @@ $(document).ready(function () {
 
     //selecting characters
     $('#jediChoices').on('click', '.characterListArea', function(e) {
+        //stores element into dom, then into character-index
         var element = $(this);
         var charIndex = element.data('character-index');
         if (!gameObj.userCharacter) {
@@ -199,19 +204,19 @@ $(document).ready(function () {
     });
 
     //selecting enemy
-    
+    $('#enemyChoices').on('click', '.characterListArea', function(e){
+        var element = $(this);
+        var charIndex = element.data('character-index');
+        
+        //if current enemy is not seleted
+        if(!gameObj.currentEnemy) {
+            gameObj.winOccured = false;
+            gameObj.attackOccured = false;
+            gameObj.currentEnemy = gameObj.characterList.splice(charIndex, 1)[0];
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
+        //updates html elements
+        play();
+    });
 
 });
