@@ -43,11 +43,9 @@ body {
     margin-top: 75px;
 }
 
-#jediChoices img {
+.charImages {
     position: relative;
     display: inline-block;
-    
-    left: 27%;
     transform: translate(-15%);
     margin: 0 auto;
     margin-top: 15px;

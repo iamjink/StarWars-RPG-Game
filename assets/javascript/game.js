@@ -1,6 +1,3 @@
-
-
-
 $(document).ready(function () {
     //reset function sets everything to 0/ false at game start
  
